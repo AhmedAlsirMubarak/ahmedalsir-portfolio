@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php -m)",
+      "Bash(php --ini)",
+      "Bash(php -r \"echo php_ini_loaded_file\\(\\) . PHP_EOL; echo phpversion\\(\\) . PHP_EOL;\")",
+      "Bash(php -r \"echo extension_loaded\\('intl'\\) ? 'intl loaded' : 'intl NOT loaded';\")",
+      "Bash(taskkill /F /IM php.exe)",
+      "Bash(cmd //c \"taskkill /F /IM php.exe\")",
+      "Bash(composer remove:*)"
+    ]
+  }
+}

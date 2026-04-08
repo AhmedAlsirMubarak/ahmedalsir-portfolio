@@ -2,13 +2,23 @@
 
 namespace Database\Seeders;
 
-use App\Models\{Certification, Education, Experience, Project, Setting, Skill, Testimonial};
+use App\Models\{Certification, Education, Experience, Project, Setting, Skill, Testimonial, User};
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        // ── Admin user ────────────────────────────────────────────────────────
+        User::updateOrCreate(
+            ['email' => 'admin@portfolio.test'],
+            [
+                'name'     => 'Admin',
+                'password' => Hash::make('password'),
+            ]
+        );
+
         // ── Settings ──────────────────────────────────────────────────────────
         $settings = [
             'name'            => 'Your Name',
