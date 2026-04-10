@@ -2,6 +2,14 @@ import Alpine from 'alpinejs';
 window.Alpine = Alpine;
 Alpine.start();
 
+// ── Theme toggle ───────────────────────────────────────────────────────
+window.toggleTheme = function () {
+    const html = document.documentElement;
+    const isLight = html.classList.toggle('light');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    window.dispatchEvent(new CustomEvent('theme-changed', { detail: isLight ? 'light' : 'dark' }));
+};
+
 // ── Intersection Observer: fade-in-up on scroll ────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     const io = new IntersectionObserver((entries) => {
