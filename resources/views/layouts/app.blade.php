@@ -20,7 +20,7 @@
 @include('components.footer')
 
 @if(!empty($settings['whatsapp']))
-<a href="https://wa.me/{{ preg_replace('/[^0-9]/','', $settings['whatsapp']) }}"
+<a href="https://api.whatsapp.com/send?phone={{ preg_replace('/[^0-9]/','', $settings['whatsapp']) }}"
    target="_blank" rel="noopener"
    style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:50;width:3.25rem;height:3.25rem;background:#22c55e;border-radius:9999px;display:flex;align-items:center;justify-content:center;color:white;box-shadow:0 4px 14px rgba(34,197,94,0.4);transition:transform .2s,background .2s;"
    onmouseover="this.style.transform='scale(1.1)';this.style.background='#16a34a'"
