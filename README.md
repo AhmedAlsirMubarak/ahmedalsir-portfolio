@@ -9,7 +9,7 @@ A full-stack developer portfolio CMS built with **Laravel 12**, featuring a cust
 > Place your screenshots in a `screenshots/` folder at the project root, then update the paths below.
 
 ### Public Site — Dark Mode
-![Hero Dark](screenshots/hero-dark.png)
+![Hero Dark](screenshots/portfolio-1.png)
 
 ### Public Site — Light Mode
 ![Hero Light](screenshots/hero-light.png)
