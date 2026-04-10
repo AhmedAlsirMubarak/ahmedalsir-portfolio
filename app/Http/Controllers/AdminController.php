@@ -87,7 +87,7 @@ class AdminController extends Controller
         $data['tech_tags'] = $this->parseTags($request->input('tech_tags', ''));
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('projects', 'public');
+            $data['image'] = $request->file('image')->store('projects');
         }
 
         Project::create($data);
@@ -118,8 +118,8 @@ class AdminController extends Controller
         $data['tech_tags']  = $this->parseTags($request->input('tech_tags', ''));
 
         if ($request->hasFile('image')) {
-            if ($project->image) Storage::disk('public')->delete($project->image);
-            $data['image'] = $request->file('image')->store('projects', 'public');
+            if ($project->image) Storage::delete($project->image);
+            $data['image'] = $request->file('image')->store('projects');
         }
 
         $project->update($data);
@@ -128,7 +128,7 @@ class AdminController extends Controller
 
     public function projectsDestroy(Project $project)
     {
-        if ($project->image) Storage::disk('public')->delete($project->image);
+        if ($project->image) Storage::delete($project->image);
         $project->delete();
         return back()->with('success', 'Project deleted.');
     }

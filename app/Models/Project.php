@@ -11,6 +11,6 @@ class Project extends Model {
     public function getImageUrlAttribute(): ?string {
         if (!$this->image) return null;
         if (str_starts_with($this->image,'http')) return $this->image;
-        return asset('storage/'.$this->image);
+        return \Illuminate\Support\Facades\Storage::url($this->image);
     }
 }
