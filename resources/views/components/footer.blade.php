@@ -12,7 +12,7 @@
 
             <div>
                 <h4 style="color:#64748b;font-size:.7rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin:0 0 .875rem;">Tech Stack Built with</h4>
-                @foreach(['Laravel 12','Filament v5','Tailwind CSS v4','Alpine.js 3','Livewire v4'] as $tech)
+                @foreach(['Laravel 12','PHP 8.3','Tailwind CSS v4','Alpine.js 3','Vite 8','MySQL'] as $tech)
                 <div style="display:flex;align-items:center;gap:.5rem;color:#475569;font-size:.8rem;margin-bottom:.375rem;">
                     <span style="width:.375rem;height:.375rem;border-radius:50%;background:#22d3ee;display:inline-block;flex-shrink:0;"></span>{{ $tech }}
                 </div>
