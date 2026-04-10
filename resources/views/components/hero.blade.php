@@ -21,7 +21,7 @@
                     <h1 style="font-size:clamp(2.5rem,5vw,3.75rem);font-weight:700;color:var(--c-heading);line-height:1.1;margin:0 0 .75rem;">{{ $settings['name'] ?? 'Your Name' }}</h1>
                     <h2 style="font-size:clamp(1.25rem,2.5vw,1.875rem);font-weight:600;margin:0;">
                         <span class="gradient-text">
-                            <span id="typed-text" data-phrases="{{ htmlspecialchars($settings['typed_phrases'] ?? '[]') }}">{{ $settings['title'] ?? 'Senior Software Engineer' }}</span><span class="cursor"></span>
+                            <span id="typed-text" data-phrases='{!! json_encode(json_decode($settings['typed_phrases'] ?? '[]')) !!}'>{{ $settings['title'] ?? 'Senior Software Engineer' }}</span><span class="cursor"></span>
                         </span>
                     </h2>
                 </div>
