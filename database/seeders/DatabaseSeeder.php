@@ -12,11 +12,13 @@ class DatabaseSeeder extends Seeder
     {
 
         //admin user
-        \App\Models\User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'ahmedalsirmubarak@hotmail.com',
-            'password' => bcrypt('Padmin@1122$'), // Replace with a secure password
-        ]);
+        \App\Models\User::firstOrCreate(
+            ['email' => 'ahmedalsirmubarak@hotmail.com'],
+            [
+                'name'     => 'Admin User',
+                'password' => bcrypt('Padmin@1122$'),
+            ]
+        );
 
         // ── Settings ──────────────────────────────────────────────────────────
         $settings = [
