@@ -136,7 +136,7 @@
         </div>
 
         {{-- Scroll cue --}}
-        <div style="position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;animation:float 3s ease-in-out infinite;">
+        <div class="hero-scroll-cue" style="position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;animation:float 3s ease-in-out infinite;">
             <span style="color:var(--c-faint);font-size:.7rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.15em;">Scroll Down</span>
             <svg width="20" height="20" fill="none" stroke="currentColor" style="color:var(--c-faint)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
         </div>
@@ -166,12 +166,4 @@
 .hero-float-backend{--r:-3deg;}
 .hero-float-frontend{--r:3deg;}
 .hero-float-database{--r:-2deg;}
-
-/* Mobile: stack everything */
-@media(max-width:768px){
-    .hero-grid-cols{grid-template-columns:1fr!important;}
-    .hero-right{aspect-ratio:auto;display:flex;flex-direction:column;align-items:center;gap:1rem;max-width:100%;}
-    .hero-code{position:relative!important;top:auto!important;left:auto!important;transform:none!important;width:100%!important;}
-    .hero-float{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;transform:none!important;}
-}
 </style>

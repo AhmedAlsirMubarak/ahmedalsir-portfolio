@@ -1,8 +1,10 @@
 <?php
 namespace App\Models;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 class Testimonial extends Model {
+    use HasFactory;
     protected $fillable = ['quote','name','role','company','avatar','sort_order'];
     public function scopeOrdered(Builder $q): Builder { return $q->orderBy('sort_order')->orderBy('id'); }
     public function getAvatarUrlAttribute(): ?string {

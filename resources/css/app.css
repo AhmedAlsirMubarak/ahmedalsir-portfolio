@@ -59,7 +59,18 @@
 @layer base {
     *, *::before, *::after { box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+    html {
+        scroll-behavior: smooth;
+        overflow-x: hidden; /* prevent horizontal scroll caused by orbs/floats */
+    }
+
+    body {
+        overflow-x: hidden; /* belt-and-suspenders with Tailwind overflow-x-hidden class */
+    }
+
+    /* Prevent any single element from blowing out horizontal layout */
+    img, video, iframe, pre, table { max-width: 100%; }
+    pre { overflow-x: auto; }
 
     body {
         background-color: var(--color-dark-900);
@@ -215,6 +226,8 @@
         font-family: var(--font-family-mono);
         font-size: 0.875rem;
         line-height: 1.75rem;
+        max-width: 100%;          /* never blow out its container */
+        overflow-x: auto;         /* long lines scroll inside the block */
     }
     .code-line { display: flex; align-items: flex-start; gap: 1rem; padding: 0 1.25rem; }
     .code-number { color: var(--color-slate-600); user-select: none; width: 1.25rem; flex-shrink: 0; text-align: right; }
@@ -352,3 +365,172 @@ body::before {
     pointer-events: none;
     animation: float 8s ease-in-out infinite;
 }
+
+/* ── Mobile responsive (<= 768px) ─────────────────────────── */
+@media (max-width: 768px) {
+    /* Reduce large section padding on mobile */
+    section { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+
+    /* Prevent grid cells from blowing out their column — the #1 cause of
+       horizontal overflow. Grid cells default to min-width:auto which lets
+       them grow to fit content even when that exceeds the track width. */
+    .section-grid > *,
+    .hero-grid-cols > *,
+    .about-stats-grid > *,
+    .about-cards-grid > *,
+    .footer-grid > * { min-width: 0; }
+
+    /* 2-col / 3-col section grids → single column */
+    .section-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+    .footer-grid  { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+
+    /* About: stats bar 4-col → 2-col */
+    .about-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+    /* About: info cards 2-col → 1-col */
+    .about-cards-grid { grid-template-columns: 1fr !important; }
+
+    /* Hero: single column, code block fills width */
+    .hero-grid-cols { grid-template-columns: 1fr !important; }
+
+    /* Hero: hide decorative floating cards — text + CTAs are enough on mobile */
+    .hero-float { display: none !important; }
+
+    /* Hero right column: shrink to just the code block */
+    .hero-right-wrap { display: block !important; }
+    .hero-right {
+        position: static !important;
+        aspect-ratio: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    .hero-code {
+        position: static !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Scroll cue — hide on mobile (redundant, takes space) */
+    .hero-scroll-cue { display: none !important; }
+
+    /* Clip orbs and any overflow inside sections */
+    section { overflow-x: hidden; }
+
+    /* Filter tabs — allow wrapping on small screens */
+    .filter-tab { font-size: .75rem !important; padding: .35rem .75rem !important; }
+
+    /* Navbar: reduce horizontal padding */
+    #navbar > div { padding-left: 1rem !important; padding-right: 1rem !important; }
+
+    /* General padding reduction in cards */
+    .card { padding: 1rem !important; }
+
+    /* Education card inner: stack logo + content on very small screens */
+    @media (max-width: 480px) {
+        #education .card { flex-direction: column !important; }
+    }
+}
+
+/* ── Semantic CSS variables (dark mode = default) ────────────────────── */
+:root {
+    --c-heading:    white;
+    --c-body:       #94a3b8;
+    --c-secondary:  #64748b;
+    --c-muted:      #475569;
+    --c-faint:      #334155;
+    --bg-card:      #0f0f1c;
+    --bg-code-bar:  rgba(20,20,40,0.5);
+    --border:       #1e293b;
+    --border2:      #334155;
+    --cyan:         #22d3ee;
+    --muted:        #64748b;
+    --orb-purple:   rgba(139,92,246,0.3);
+    --orb-cyan:     rgba(34,211,238,0.2);
+    --orb-purple-sm:rgba(139,92,246,0.2);
+}
+
+/* ── Light mode ──────────────────────────────────────────────────────── */
+html.light {
+    color-scheme: light;
+    --c-heading:    #0f172a;
+    --c-body:       #475569;
+    --c-secondary:  #64748b;
+    --c-muted:      #808ea0;
+    --c-faint:      #8997aa;
+    --bg-card:      #ffffff;
+    --bg-code-bar:  rgba(241,245,249,0.9);
+    --border:       #e2e8f0;
+    --border2:      #cbd5e1;
+    --cyan:         #0891b2;
+    --muted:        #94a3b8;
+    --orb-purple:   rgba(139,92,246,0.12);
+    --orb-cyan:     rgba(34,211,238,0.12);
+    --orb-purple-sm:rgba(139,92,246,0.08);
+}
+
+html.light body {
+    background-color: #f1f5f9;
+    color: #334155;
+    background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(139,92,246,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(34,211,238,0.04) 0%, transparent 50%);
+}
+html.light body::before { opacity: 0.1; }
+html.light ::-webkit-scrollbar-track { background: #f1f5f9; }
+html.light ::-webkit-scrollbar-thumb { background: #cbd5e1; }
+
+/* Theme toggle visibility */
+html:not(.light) .theme-sun  { display: none; }
+html.light       .theme-moon { display: none; }
+
+/* Class-based component overrides */
+html.light .section-heading { color: #0f172a; }
+html.light .card { background-color: #ffffff !important; border-color: #e2e8f0 !important; }
+html.light .card:hover { border-color: #cbd5e1 !important; }
+html.light .code-block { background-color: #f8fafc !important; border-color: #e2e8f0 !important; }
+html.light .code-number  { color: #94a3b8; }
+html.light .code-obj     { color: #0f172a; }
+html.light .code-comment { color: #94a3b8; }
+html.light .tech-tag { background-color: rgba(8,145,178,0.08) !important; color: #0891b2 !important; border-color: rgba(8,145,178,0.2) !important; }
+html.light .nav-link { color: #475569; }
+html.light .nav-link:hover { color: #0f172a; }
+html.light .filter-tab { color: #64748b; }
+html.light .filter-tab:hover { color: #0f172a; }
+html.light .filter-tab.active { color: #0f172a; background-image: linear-gradient(to right, rgba(8,145,178,0.12), rgba(139,92,246,0.12)); border-color: rgba(8,145,178,0.25); }
+html.light .skill-bar-track { background-color: #e2e8f0 !important; }
+html.light .timeline-dot { border-color: #f1f5f9 !important; }
+html.light .hero-grid { background-image: linear-gradient(rgba(8,145,178,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(8,145,178,0.04) 1px, transparent 1px); }
+html.light .stat-label { color: #64748b; }
+html.light .gradient-text { background-image: linear-gradient(to right, #0891b2, #7c3aed); }
+html.light .stat-number { background-image: linear-gradient(to right, #0891b2, #7c3aed); }
+
+/* Section alternate backgrounds */
+html.light #skills,
+html.light #experience,
+html.light #certifications,
+html.light #contact { background: #f8fafc !important; }
+html.light footer { background: #e2e8f0 !important; border-top-color: #cbd5e1 !important; }
+
+/* Inline style overrides — text colors */
+html.light [style*="color:white"]    { color: #0f172a !important; }
+html.light [style*="color: white"]   { color: #0f172a !important; }
+html.light [style*="color:#cbd5e1"]  { color: #334155 !important; }
+html.light [style*="color:#94a3b8"]  { color: #475569 !important; }
+html.light [style*="color:#64748b"]  { color: #64748b !important; }
+html.light [style*="color:#475569"]  { color: #334155 !important; }
+html.light [style*="color:#334155"]  { color: #94a3b8 !important; }
+
+/* Inline style overrides — dark backgrounds */
+html.light [style*="background:#050508"]       { background: #e8edf3 !important; }
+html.light [style*="background:#0f0f1c"]       { background: #ffffff !important; }
+html.light [style*="background:#141428"]       { background: #f8fafc !important; }
+html.light [style*="background:rgba(10,10,18"] { background: #eff2f7 !important; }
+html.light [style*="background:rgba(20,20,40"] { background: rgba(241,245,249,0.9) !important; }
+html.light [style*="background:rgba(5,5,8"]   { background: rgba(248,250,252,0.92) !important; }
+
+/* Inline style overrides — dark borders */
+html.light [style*="border:1px solid #1e293b"]        { border: 1px solid #e2e8f0 !important; }
+html.light [style*="border-bottom:1px solid #1e293b"] { border-bottom: 1px solid #e2e8f0 !important; }
+html.light [style*="border-top:1px solid #1e293b"]    { border-top: 1px solid #e2e8f0 !important; }
+html.light [style*="border:1px solid #334155"]        { border: 1px solid #cbd5e1 !important; }

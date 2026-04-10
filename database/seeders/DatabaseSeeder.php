@@ -7,8 +7,17 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+
     public function run(): void
     {
+
+        //admin user
+        \App\Models\User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'ahmedalsirmubarak@hotmail.com',
+            'password' => bcrypt('Padmin@1122$'), // Replace with a secure password
+        ]);
+
         // ── Settings ──────────────────────────────────────────────────────────
         $settings = [
             'name'            => 'Your Name',

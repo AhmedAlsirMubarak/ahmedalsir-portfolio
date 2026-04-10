@@ -22,8 +22,12 @@
             @endforeach
         </div>
 
-        {{-- CTA --}}
-        <div class="hidden-mobile">
+        {{-- CTA + theme toggle --}}
+        <div class="hidden-mobile" style="display:flex;align-items:center;gap:.75rem;">
+            <button onclick="toggleTheme()" title="Toggle theme" style="display:inline-flex;align-items:center;justify-content:center;width:2.25rem;height:2.25rem;border-radius:.5rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);cursor:pointer;color:#94a3b8;transition:color .2s,background .2s;" onmouseover="this.style.background='rgba(34,211,238,.12)';this.style.color='#22d3ee'" onmouseout="this.style.background='rgba(255,255,255,.06)';this.style.color='#94a3b8'" aria-label="Toggle theme">
+                <svg class="theme-moon" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                <svg class="theme-sun" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            </button>
             @if(!empty($settings['email']))
             <a href="mailto:{{ $settings['email'] }}" class="btn-primary" style="font-size:.8rem;padding:.6rem 1.25rem;">Hire Me</a>
             @endif
@@ -45,6 +49,12 @@
         @if(!empty($settings['email']))
         <a href="mailto:{{ $settings['email'] }}" class="btn-primary" style="margin-top:.75rem;display:inline-flex;">Hire Me</a>
         @endif
+        <button onclick="toggleTheme()" style="display:flex;align-items:center;gap:.5rem;margin-top:.75rem;background:none;border:1px solid rgba(255,255,255,.1);border-radius:.5rem;padding:.5rem .75rem;color:#94a3b8;cursor:pointer;font-size:.8rem;width:100%;" aria-label="Toggle theme">
+            <svg class="theme-moon" width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+            <svg class="theme-sun" width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <span class="theme-moon">Switch to Light</span>
+            <span class="theme-sun">Switch to Dark</span>
+        </button>
     </div>
 </nav>
 

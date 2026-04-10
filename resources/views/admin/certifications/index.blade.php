@@ -56,7 +56,7 @@
         </table>
     </div>
     @if($certifications->hasPages())
-        <div class="pagination">{{ $certifications->links() }}</div>
+        <div class="pagination">{{ $certifications->links('vendor.pagination.admin') }}</div>
     @endif
 </div>
 @endsection

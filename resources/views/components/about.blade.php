@@ -15,7 +15,7 @@
                     </div>
                 </div>
 
-                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-top:1.5rem;">
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-top:1.5rem;" class="about-stats-grid">
                     @foreach([['years_exp','Years Experience'],['projects_count','Projects Delivered'],['satisfaction','Client Satisfaction'],['sprint_delivery','Sprint Delivery']] as [$key,$lab])
                     <div class="card" style="text-align:center;padding:1.25rem .75rem;">
                         <span class="stat-number" style="font-size:1.5rem;">{{ $settings[$key] ?? '-' }}</span>
@@ -47,7 +47,7 @@
 
                 @php $cards = json_decode($settings['about_cards'] ?? '[]', true) ?? []; @endphp
                 @if(count($cards))
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;" class="about-cards-grid">
                     @foreach($cards as $c)
                     <div class="card" style="padding:1rem;transition:border-color .3s,box-shadow .3s;" onmouseover="this.style.borderColor='rgba(34,211,238,.2)';this.style.boxShadow='0 0 30px rgba(34,211,238,.1)'" onmouseout="this.style.borderColor='#1e293b';this.style.boxShadow='none'">
                         <h4 style="color:white;font-weight:600;font-size:.875rem;margin:0 0 .25rem;">{{ $c['title'] }}</h4>

@@ -57,7 +57,7 @@
         </table>
     </div>
     @if($educations->hasPages())
-        <div class="pagination">{{ $educations->links() }}</div>
+        <div class="pagination">{{ $educations->links('vendor.pagination.admin') }}</div>
     @endif
 </div>
 @endsection

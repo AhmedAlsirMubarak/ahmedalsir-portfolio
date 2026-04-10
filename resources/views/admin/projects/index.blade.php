@@ -69,7 +69,7 @@
     </div>
     @if($projects->hasPages())
         <div class="pagination">
-            {{ $projects->links() }}
+            {{ $projects->links('vendor.pagination.admin') }}
         </div>
     @endif
 </div>
